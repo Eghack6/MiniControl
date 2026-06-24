@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>投影遥控</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 状态栏 -->
+  <div id="status-bar">
+    <span id="status-dot"></span>
+    <span id="status-text">连接中...</span>
+    <span id="latency-display">--ms</span>
+  </div>
+
+  <!-- 主触控板区域 -->
+  <div id="touchpad-area">
+    <div id="touchpad">
+      <div id="cursor-indicator"></div>
+    </div>
+  </div>
+
+  <!-- 底部控制栏 -->
+  <div id="control-bar">
+    <button id="btn-back" class="ctrl-btn" data-action="back">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      <span>返回</span>
+    </button>
+
+    <button id="btn-home" class="ctrl-btn" data-action="home">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>主页</span>
+    </button>
+
+    <button id="btn-scroll" class="ctrl-btn active-mode" data-mode="scroll">
+      <svg viewBox="0 0 24 24"><path d="M12 5.83L15.17 9l1.41-1.41L12 2.59 7.41 7.59 8.83 9 12 5.83zm0 12.34L8.83 15l-1.41 1.41L12 21.41l4.59-4.59L15.17 15 12 18.17z"/></svg>
+      <span>滚动</span>
+    </button>
+
+    <button id="btn-keyboard" class="ctrl-btn" data-mode="keyboard">
+      <svg viewBox="0 0 24 24"><path d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-1 2H5v-2h2v2zm0-3H5V8h2v2zm9 7H8v-2h8v2zm0-4h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z"/></svg>
+      <span>键盘</span>
+    </button>
+
+    <button id="btn-recents" class="ctrl-btn" data-action="recents">
+      <svg viewBox="0 0 24 24"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+      <span>最近</span>
+    </button>
+  </div>
+
+  <!-- 虚拟键盘面板 -->
+  <div id="keyboard-panel" class="hidden">
+    <div id="keyboard-header">
+      <span>键盘输入</span>
+      <button id="btn-kb-close">✕</button>
+    </div>
+    <div id="keyboard-input-area">
+      <input type="text" id="keyboard-input" placeholder="点击输入文字..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button id="btn-kb-send">发送</button>
+      <button id="btn-kb-bs">⌫</button>
+    </div>
+    <div id="keyboard-keys">
+      <div class="kb-row">
+        <button class="kb-key">1</button>
+        <button class="kb-key">2</button>
+        <button class="kb-key">3</button>
+        <button class="kb-key">4</button>
+        <button class="kb-key">5</button>
+        <button class="kb-key">6</button>
+        <button class="kb-key">7</button>
+        <button class="kb-key">8</button>
+        <button class="kb-key">9</button>
+        <button class="kb-key">0</button>
+      </div>
+      <div class="kb-row">
+        <button class="kb-key">q</button>
+        <button class="kb-key">w</button>
+        <button class="kb-key">e</button>
+        <button class="kb-key">r</button>
+        <button class="kb-key">t</button>
+        <button class="kb-key">y</button>
+        <button class="kb-key">u</button>
+        <button class="kb-key">i</button>
+        <button class="kb-key">o</button>
+        <button class="kb-key">p</button>
+      </div>
+      <div class="kb-row">
+        <button class="kb-key">a</button>
+        <button class="kb-key">s</button>
+        <button class="kb-key">d</button>
+        <button class="kb-key">f</button>
+        <button class="kb-key">g</button>
+        <button class="kb-key">h</button>
+        <button class="kb-key">j</button>
+        <button class="kb-key">k</button>
+        <button class="kb-key">l</button>
+      </div>
+      <div class="kb-row">
+        <button class="kb-key wide">⇧</button>
+        <button class="kb-key">z</button>
+        <button class="kb-key">x</button>
+        <button class="kb-key">c</button>
+        <button class="kb-key">v</button>
+        <button class="kb-key">b</button>
+        <button class="kb-key">n</button>
+        <button class="kb-key">m</button>
+        <button class="kb-key wide">⌫</button>
+      </div>
+      <div class="kb-row">
+        <button class="kb-key special">@</button>
+        <button class="kb-key special">.</button>
+        <button class="kb-key space">空格</button>
+        <button class="kb-key special">-</button>
+        <button class="kb-key special">_</button>
+        <button class="kb-key special enter">回车</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

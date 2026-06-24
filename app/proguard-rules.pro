@@ -1,0 +1,3 @@
+-keep class com.projector.remote.** { *; }
+-keep class org.nanohttpd.** { *; }
+-dontwarn org.nanohttpd.**

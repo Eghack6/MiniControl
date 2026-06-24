@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- 背景圆 -->
+    <path
+        android:fillColor="#1a1a2e"
+        android:pathData="M54,54m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0" />
+    <!-- 投影仪图标 -->
+    <path
+        android:fillColor="#4fc3f7"
+        android:pathData="M35,40h38c2.2,0 4,1.8 4,4v20c0,2.2 -1.8,4 -4,4h-4v8l-6,-8h-28c-2.2,0 -4,-1.8 -4,-4v-20c0,-2.2 1.8,-4 4,-4z" />
+    <!-- 镜头 -->
+    <path
+        android:fillColor="#0a0a1a"
+        android:pathData="M44,50m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+    <!-- 光线 -->
+    <path
+        android:fillColor="#4fc3f7"
+        android:strokeWidth="1.5"
+        android:strokeColor="#4fc3f7"
+        android:pathData="M44,50l-12,10M44,50l-14,6M44,50l-13,14"
+        android:fillAlpha="0" />
+    <!-- 鼠标光标 -->
+    <path
+        android:fillColor="#ffffff"
+        android:pathData="M62,35l0,16l4,-4l6,8l3,-2l-6,-8l5,0z" />
+</vector>
