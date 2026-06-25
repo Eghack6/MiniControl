@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
     private void startServers() {
         String ip = NetworkUtils.getLocalIpAddress(this);
 
-        // 启动 HTTP 服务器
         try {
             httpServer = new HttpServer(this, HTTP_PORT);
             httpServer.start();
@@ -105,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // 启动 WebSocket 服务器
         try {
             wsServer = new WebSocketServer(WS_PORT);
             eventRouter = new EventRouter();

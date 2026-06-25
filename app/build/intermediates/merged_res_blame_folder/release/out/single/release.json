@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.projector.remote.app-merged_res-21:/drawable_ic_launcher.xml.flat",
+        "source": "com.projector.remote.app-main-22:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "com.projector.remote.app-merged_res-21:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.projector.remote.app-main-22:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.projector.remote.app-merged_res-21:/layout_activity_main.xml.flat",
+        "source": "com.projector.remote.app-main-22:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.projector.remote.app-merged_res-21:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.projector.remote.app-main-22:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.projector.remote.app-merged_res-21:/xml_accessibility_service_config.xml.flat",
+        "source": "com.projector.remote.app-main-22:/xml/accessibility_service_config.xml"
+    }
+]

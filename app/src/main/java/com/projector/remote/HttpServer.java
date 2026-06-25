@@ -6,19 +6,16 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import fi.iki.elonen.NanoHTTPD;
 
-/**
- * HTTP 服务器，负责托管 Web 触控板页面。
- * 手机浏览器访问 http://<投影仪IP>:<端口>/ 即可加载页面。
- */
 public class HttpServer extends NanoHTTPD {
 
     private static final String TAG = "HttpServer";
     private final Context context;
 
-    // MIME 类型映射
     private static final String MIME_HTML = "text/html; charset=utf-8";
     private static final String MIME_CSS = "text/css; charset=utf-8";
     private static final String MIME_JS = "application/javascript; charset=utf-8";
@@ -31,17 +28,40 @@ public class HttpServer extends NanoHTTPD {
         this.context = context;
     }
 
+    public void setEventRouter(EventRouter router) {
+        this.eventRouter = router;
+    }
+
     @Override
     public Response serve(IHTTPSession session) {
         String uri = session.getUri();
+        Method method = session.getMethod();
 
-        // API: 返回服务器信息
         if ("/api/info".equals(uri)) {
             String json = "{\"httpPort\":" + getListeningPort() + ",\"wsPort\":" + (getListeningPort() + 1) + "}";
             return newFixedLengthResponse(Response.Status.OK, MIME_JSON, json);
         }
 
-        // 静态文件服务
+        if ("/api/ping".equals(uri)) {
+            return newFixedLengthResponse(Response.Status.OK, MIME_JSON, "{\"status\":\"ok\"}");
+        }
+
+        if ("/api/event".equals(uri)) {
+            try {
+                Map<String, String> body = new HashMap<>();
+                session.parseBody(body);
+                String data = body.get("data");
+                if (data != null && !data.isEmpty()) {
+                    EventRouter router = new EventRouter();
+                    router.processMessage(data);
+                }
+                return newFixedLengthResponse(Response.Status.OK, MIME_JSON, "{\"ok\":true}");
+            } catch (Exception e) {
+                Log.w(TAG, "Event error: " + e.getMessage());
+                return newFixedLengthResponse(Response.Status.BAD_REQUEST, MIME_JSON, "{\"ok\":false}");
+            }
+        }
+
         if ("/".equals(uri) || "".equals(uri)) {
             uri = "/web/index.html";
         } else if (uri.startsWith("/")) {
@@ -50,9 +70,12 @@ public class HttpServer extends NanoHTTPD {
 
         try {
             AssetManager am = context.getAssets();
-            InputStream is = am.open(uri.substring(1)); // 去掉开头的 /
+            InputStream is = am.open(uri.substring(1));
             String mime = getMimeType(uri);
-            return newChunkedResponse(Response.Status.OK, mime, is);
+            Response resp = newChunkedResponse(Response.Status.OK, mime, is);
+            resp.addHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            resp.addHeader("Access-Control-Allow-Origin", "*");
+            return resp;
         } catch (IOException e) {
             return newFixedLengthResponse(Response.Status.NOT_FOUND, "text/plain", "404 Not Found");
         }

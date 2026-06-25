@@ -149,9 +149,9 @@ public class InputAccessibilityService extends AccessibilityService {
         } else {
             // 降级：对当前焦点节点执行滚动动作
             if (dy > 0) {
-                performGlobalAction(GLOBAL_ACTION_SCROLL_FORWARD);
+                performGlobalAction(15);
             } else if (dy < 0) {
-                performGlobalAction(GLOBAL_ACTION_SCROLL_BACKWARD);
+                performGlobalAction(14);
             }
         }
     }
@@ -349,10 +349,10 @@ public class InputAccessibilityService extends AccessibilityService {
                 pressBackspace();
                 break;
             case KeyEvent.KEYCODE_DPAD_UP:
-                performGlobalAction(GLOBAL_ACTION_SCROLL_BACKWARD);
+                performGlobalAction(14);
                 break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
-                performGlobalAction(GLOBAL_ACTION_SCROLL_FORWARD);
+                performGlobalAction(15);
                 break;
         }
     }
